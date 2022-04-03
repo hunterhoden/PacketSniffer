@@ -43,6 +43,7 @@ public class App {
                 String input = scnr.nextLine();
                 for(PcapNetworkInterface j : devices) {
                     if(String.valueOf(j) == input) {
+                        scnr.close(); //clean up
                         listeningDevice = j;
                         return listeningDevice;
                     } 
