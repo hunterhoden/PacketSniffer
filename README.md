@@ -1,6 +1,6 @@
 # PacketSniffer
  Packet Sniffer to analyze and interpret data using pcap4j
- Created for computer informations systems course: Project Managment
+ Created for computer informations systems course: Project Managment at Colorado State University.
 
  Code Contributors:
 

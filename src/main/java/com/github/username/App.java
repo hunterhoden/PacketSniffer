@@ -5,19 +5,20 @@ import java.io.IOException;
 
 import org.pcap4j.core.NotOpenException;
 import org.pcap4j.core.PacketListener;
+import org.pcap4j.core.Pcaps;
 import org.pcap4j.core.PcapHandle;
 import org.pcap4j.core.PcapNativeException;
 import org.pcap4j.core.PcapNetworkInterface;
 import org.pcap4j.core.PcapNetworkInterface.PromiscuousMode;
 import org.pcap4j.packet.Packet;
-import org.pcap4j.util.NifSelector;
-import java.util.ArrayList;
+//import org.pcap4j.util.NifSelector; might not need
+import java.util.List;
 import java.util.Scanner;
 
 
 public class App {
 
-    static PcapNetworkInterface getNetworkDevice() {
+    static PcapNetworkInterface getNetworkDevice() throws IOException {
         //Network device for storing all devices
         List<PcapNetworkInterface> devices = null;
         PcapNetworkInterface listeningDevice = null;
@@ -28,36 +29,54 @@ public class App {
             throw new IOException(e.getMessage());
         }
         //if there are no devices to listen for
-        if(devices == null || deviecs.isEmpty()) {
+        if(devices == null || devices.isEmpty()) {
             throw new IOException("Nothing to listen for");
         }
         //Checking what device to listen for
         else {
-            Scanner scnr = new Scanner(System.in);
-            System.out.print("Choose what to listen for: ");
-            for(PcapNetworkInterface i : devices) {
-                System.out.print(devices[i] + ", ");
-            }
-            System.out.println("");
-            String input = scnr.nextLine();
-            for(PcapNetworkInterface j : devices) {
-                if(String.valueOf(devices[j]) == input) {
-                    listeningDevice = devices[j];
-                    return listeningDevice;
-                } 
+            try (Scanner scnr = new Scanner(System.in)) {
+                System.out.print("Choose what to listen for: ");
+                for(PcapNetworkInterface i : devices) {
+                    System.out.print( i + ", ");
+                }
+                System.out.println("");
+                String input = scnr.nextLine();
+                for(PcapNetworkInterface j : devices) {
+                    if(String.valueOf(j) == input) {
+                        listeningDevice = j;
+                        return listeningDevice;
+                    } 
+                }
+                scnr.close(); //clean up
             }
         }
         
         return null;
     }
 
-    public static void main( String[] args ) {
+    public static void main( String[] args ) throws IOException, PcapNativeException, NotOpenException {
         PcapNetworkInterface device = getNetworkDevice();
-
         //Opening the device in...
         int snapShotLength = 65536; // Bytes
         int readTimeout = 50; //Milliseconds
-       // final PcapHandle handle;
-        // handle = devices.openLive
+        final PcapHandle handle;
+        handle = device.openLive(snapShotLength, PromiscuousMode.PROMISCUOUS, readTimeout);
+        //Listener that defines what we are doing with packets
+        PacketListener listen = new PacketListener() {
+            @Override 
+            public void gotPacket(Packet packet) {
+                System.out.println(handle.getTimestamp());
+                System.out.println(packet);
+            }
+        };
+        //Handler loop using listener
+        try {
+            int maxPackets = 50;
+            handle.loop(maxPackets, listen);
+        }  catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        handle.close(); //clean up
     }
 }
