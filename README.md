@@ -15,9 +15,17 @@
 
    WinPcap : https://www.winpcap.org/
 
-   Maven : https://maven.apache.org/download.cgi
+   Maven : https://maven.apache.org/download.cgi  
+
+   Maven setup instructions : https://mkyong.com/maven/how-to-install-maven-in-windows/ 
 
    JDK 1.7 or newer
+
+   To create directory use the following command in windows : ALL ONE LINE
+
+   mvn archetype:generate -DgroupId=com.github.username -DartifactId=pcap -Dversion=1.0.0 -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false 
+
+   Replace pom.xml and App.java with ones found here. 
    
 
 For more information on the pcap4j tool used and how to use it please visit: 
