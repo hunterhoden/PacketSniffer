@@ -11,7 +11,7 @@
 
  Requirements to run: 
 
-   Pcap4j : pcap4j-distribution-1.8.2-bin.zip 
+   Pcap4j : https://github.com/kaitoy/pcap4j#download 
 
    WinPcap : https://www.winpcap.org/
 
@@ -21,7 +21,7 @@
 
    JDK 1.7 or newer
 
-   To create directory use the following command in windows : ALL ONE LINE
+   To create directory use the following command in windows terminal : ALL ONE LINE
 
    mvn archetype:generate -DgroupId=com.github.username -DartifactId=pcap -Dversion=1.0.0 -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false 
 

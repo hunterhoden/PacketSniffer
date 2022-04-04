@@ -35,9 +35,9 @@ public class App {
         //Checking what device to listen for
         else {
             try (Scanner scnr = new Scanner(System.in)) {
-                System.out.print("Choose what to listen for: ");
+                System.out.print("Choose what to listen for: \n");
                 for(PcapNetworkInterface i : devices) {
-                    System.out.print( i + ", ");
+                    System.out.print( i + "\n");
                 }
                 System.out.println("");
                 String input = scnr.nextLine();
