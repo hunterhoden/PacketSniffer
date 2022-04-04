@@ -37,6 +37,8 @@ public class App {
             try (Scanner scnr = new Scanner(System.in)) {
                 System.out.print("Choose what to listen for: \n");
                 for(PcapNetworkInterface i : devices) {
+                    //Listing options of what to listen for. Not sure if you could dynamically assign buttons 
+                    //but if you could it might be nice to put here.
                     System.out.print( i + "\n");
                 }
                 System.out.println("");

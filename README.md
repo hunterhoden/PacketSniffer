@@ -1,12 +1,12 @@
 # PacketSniffer
  Packet Sniffer to analyze and interpret data using pcap4j
- Created for computer informations systems course: Project Managment at Colorado State University.
+ Created for Computer Informations Systems course: Project Managment at Colorado State University Spring 2022.
 
  Code Contributors:
 
-   Hunter Hoden: Project manager, creating packet sniffer and data analysis.
+   Hunter Hoden: Project manager, creating creating of packet sniffer and utilization of pcap4j.
 
-   Robby Rolison: GUI creator, information displays and processing. 
+   Robby Rolison: GUI creator, information displays and description. 
 
 
  Requirements to run: 
