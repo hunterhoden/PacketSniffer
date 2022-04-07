@@ -44,7 +44,7 @@ public class App {
 
         //Opening the device in...
         int snapShotLength = 65536; // Bytes
-        int readTimeout = 25; //Milliseconds
+        int readTimeout = 50; //Milliseconds
         final PcapHandle handle; 
         handle = device.openLive(snapShotLength, PromiscuousMode.PROMISCUOUS, readTimeout); //Handler set up
         PcapDumper dumper = handle.dumpOpen("output.pcap"); //Output file for packet info
@@ -68,7 +68,7 @@ public class App {
         };
         //Handler loop using listener
         try {
-            int maxPackets = 25;
+            int maxPackets = 50;
             handle.loop(maxPackets, listen);
         }  catch (InterruptedException e) {
             e.printStackTrace();
