@@ -1,6 +1,6 @@
 # PacketSniffer
  Packet Sniffer to analyze and interpret data using pcap4j
- Created for Computer Informations Systems course: Project Managment at Colorado State University Spring 2022.
+ Created for Computer Informations Systems course: Project Management at Colorado State University Spring 2022.
 
  Requirements to run: 
 
@@ -12,7 +12,7 @@
 
    Maven setup instructions : https://mkyong.com/maven/how-to-install-maven-in-windows/ 
 
-   JDK 1.7 or newer
+   JDK 1.8
 
    To create directory use the following command in windows terminal : ALL ONE LINE
 
