@@ -31,7 +31,7 @@ public class App {
         }
         //if there are no devices to listen for
         if(devices == null) {
-            throw new IOException("No devices available!");
+            throw new IOException("No device selected");
         }
         //Returning devices
         return devices;
