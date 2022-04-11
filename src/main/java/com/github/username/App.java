@@ -33,7 +33,7 @@ public class App {
         if(devices == null) {
             throw new IOException("No device selected");
         }
-        //Returning devices
+        
         return devices;
     }
 
@@ -44,7 +44,7 @@ public class App {
 
         //Opening the device in...
         int snapShotLength = 65536; // Bytes
-        int readTimeout = 50; //Milliseconds
+        int readTimeout = 200; //Milliseconds
         final PcapHandle handle; 
         handle = device.openLive(snapShotLength, PromiscuousMode.PROMISCUOUS, readTimeout); //Handler set up
         PcapDumper dumper = handle.dumpOpen("output.pcap"); //Output file for packet info
