@@ -42,7 +42,7 @@ public class PacketSniffer extends Thread {
         gotoOutput = true;
     }
     //Stop updating atomicbool
-    public void StopUpdate() { running.set(false); }
+    public void stopUpdate() { running.set(false); }
 
     @Override
     public void run() {

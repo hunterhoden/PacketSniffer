@@ -32,9 +32,11 @@ import org.pcap4j.core.PcapNetworkInterface.PromiscuousMode;
 import org.pcap4j.core.PcapStat;
 import org.pcap4j.core.Pcaps;
 import org.pcap4j.packet.Packet;
-import org.pcap4j.util.NifSelector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
@@ -142,8 +144,141 @@ public class Main {
     }
 
     private void initialize() {
+        frame = new JFrame();
+        frame.setBounds(200, 200, 708, 496);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().setLayout(new BorderLayout(2,2));
 
-        
+        JPanel panelSide = new JPanel();
+        JPanel paneOne = new JPanel();
+        panelSide.setLayout(new BoxLayout(panelSide, BoxLayout.Y_AXIS));
+        panelSide.add(paneOne);
+        paneOne.setLayout(new BoxLayout(paneOne, BoxLayout.X_AXIS));
+
+        start = new JButton("\u2586");
+        start.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) { 
+                StartMonitoring(); 
+            }
+        });
+
+        paneOne.add(start);
+        start.setForeground(new Color(0, 255, 0));
+
+        stop = new JButton("\u25A0");
+        stop.addActionListener( new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                packetSniffer.stopUpdate();
+                outputThread.stopUpdate();
+                start.setEnabled(true);
+                stop.setEnabled(false);
+            }
+        });
+        stop.setEnabled(false);
+
+        paneOne.add(stop);
+        stop.setForeground(new Color(255, 0, 0));
+
+        JPanel paneTwo = new JPanel();
+        panelSide.add(paneTwo);
+        paneTwo.setLayout(new FlowLayout(FlowLayout.LEADING, 5, 5));
+
+        JLabel labelInterface = new JLabel("Interface");
+        paneTwo.add(labelInterface);
+
+        ddlInterfaces = new JComboBox();
+        paneTwo.add(ddlInterfaces);
+
+        JPanel paneThree = new JPanel();
+        panelSide.add(paneThree);
+
+        JLabel labelArguments = new JLabel("Filter");
+        paneThree.add(labelArguments);
+
+        txtFilters = new JTextField();
+        paneThree.add(txtFilters);
+        txtFilters.setColumns(10);
+
+        JPanel paneFour = new JPanel();
+        panelSide.add(paneFour);
+
+        //DUMP FILE
+        dumpFile = new JCheckBox("Enabled");
+        dumpFile.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                if(dumpFile.isSelected()) {
+                    JFileChooser chooser = new JFileChooser();
+                    FileNameExtensionFilter filter = new FileNameExtensionFilter("pcap file", ".pcapFile");
+                    chooser.setFileFilter(filter);
+                    int rtnValue = chooser.showSaveDialog(frame);
+                    if(rtnValue == JFileChooser.APPROVE_OPTION) {
+                        filePath.setText(chooser.getSelectedFile().getAbsolutePath());
+                        if(!filePath.getText().endsWith(".pcap")) {
+                            filePath.setText(filePath.getText() + ".pcap");
+                        }
+                    }
+                    else if(rtnValue == JFileChooser.CANCEL_OPTION) {
+                        dumpFile.setSelected(false);
+                        filePath.setText("");
+                    }
+                }
+                else {
+                    dumpFile.setSelected(false);
+                    filePath.setText("");
+                };
+            }
+        });
+
+        paneFour.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        JLabel labelDump = new JLabel("Dump File");
+        paneFour.add(labelDump);
+        paneFour.add(dumpFile);
+        frame.getContentPane().add(panelSide, BorderLayout.WEST);
+
+        JPanel panel = new JPanel();
+        panelSide.add(panel);
+
+        JPanel panelCenter = new JPanel();
+        frame.getContentPane().add(panelCenter, BorderLayout.CENTER);
+        panelCenter.setLayout(new BorderLayout(2,2));
+
+        tableModel = new DefaultTableModel(new Object[][]{}, new String[] {"Type", "Src", "Dst","Data"});
+
+        tblOutput = new JTable();
+        tblOutput.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent arg0) {
+                int row = tblOutput.rowAtPoint(arg0.getPoint());
+                int col = tblOutput.columnAtPoint(arg0.getPoint());
+                if(row >= 0 && col >= 0) {
+                    String data = tableModel.getValueAt(tblOutput.getSelectedRow(), 3).toString();
+                    txtData.setText(data);
+                    pnlData.setVisible(true);
+                }
+            }
+        });
+        tblOutput.setModel(tableModel);
+        tblOutput.setShowHorizontalLines(false);
+        JScrollPane scrollPane = new JScrollPane(tblOutput);
+        panelCenter.add(scrollPane, BorderLayout.CENTER);
+
+        pnlData = new JPanel();
+        panelCenter.add(pnlData, BorderLayout.SOUTH);
+        pnlData.setLayout(new BorderLayout(0,0));
+
+        txtData = new JTextArea();
+        pnlData.add(txtData, BorderLayout.CENTER);
+
+        JButton closeData = new JButton("Close");
+        closeData.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent arg0) {
+                pnlData.setVisible(false);
+            }
+        });
+        pnlData.add(closeData, BorderLayout.EAST);
+        pnlData.setVisible(false);
+        frame.getContentPane().add(filePath, BorderLayout.SOUTH);
     }
 
 }
