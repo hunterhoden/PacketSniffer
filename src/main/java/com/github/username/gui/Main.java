@@ -147,7 +147,7 @@ public class Main {
         frame = new JFrame();
         frame.setBounds(200, 200, 708, 496);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().setLayout(new BorderLayout(2,2));
+        frame.getContentPane().setLayout(new BorderLayout(0,0));
 
         JPanel panelSide = new JPanel();
         JPanel paneOne = new JPanel();
@@ -155,7 +155,7 @@ public class Main {
         panelSide.add(paneOne);
         paneOne.setLayout(new BoxLayout(paneOne, BoxLayout.X_AXIS));
 
-        start = new JButton("\u2586");
+        start = new JButton("\u25A0");
         start.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) { 
                 StartMonitoring(); 
