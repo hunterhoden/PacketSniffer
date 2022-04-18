@@ -145,7 +145,7 @@ public class Main {
 
     private void initialize() {
         frame = new JFrame();
-        frame.setBounds(200, 200, 708, 496);
+        frame.setBounds(100, 100, 708, 496);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(new BorderLayout(0,0));
 

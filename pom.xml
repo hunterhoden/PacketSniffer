@@ -67,6 +67,12 @@
       <version>1.7.3</version>
       <type>jar</type>
     </dependency>
+    <dependency>
+      <groupId>org.pcap4j</groupId>
+      <artifactId>pcap4j-packetfactory-static</artifactId>
+      <version>1.7.3</version>
+      <type>jar</type>
+    </dependency>
     <!-- Fixing error that breaks whole damn thing -->
     <dependency>
       <groupId>org.slf4j</groupId>
