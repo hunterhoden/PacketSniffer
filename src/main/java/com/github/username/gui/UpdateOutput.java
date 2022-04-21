@@ -1,4 +1,4 @@
-package com.github.username.PacketSniffer;
+package com.github.username.gui;
 
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
