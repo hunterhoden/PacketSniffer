@@ -27,7 +27,7 @@ public class ScannerTopPanel extends JPanel implements ActionListener {
     }
 
     private void initComponents() {
-        this.setBackground(Color.LIGHT_GRAY);
+        this.setBackground(Color.WHITE);
         toggleCaptureBtn.setOpaque(false);
         toggleCaptureBtn.setContentAreaFilled(false);
         toggleCaptureBtn.setBorderPainted(false);

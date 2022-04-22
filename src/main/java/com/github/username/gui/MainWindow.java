@@ -14,7 +14,7 @@ public class MainWindow extends JFrame {
         } catch (PcapNativeException e) {
             System.err.println("Something went wrong");
         }
-        this.setSize(500,250);
+        this.setSize(350,250);
         this.setResizable(false);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.add(ss);
