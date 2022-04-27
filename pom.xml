@@ -73,7 +73,7 @@
       <version>1.7.3</version>
       <type>jar</type>
     </dependency>
-    <!-- Fixing error that breaks whole damn thing -->
+    <!-- Fixing error -->
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
