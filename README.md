@@ -18,7 +18,7 @@
 
    mvn archetype:generate -DgroupId=com.github.username -DartifactId=pcap -Dversion=1.0.0 -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false 
 
-   Replace pom.xml and App.java with ones found here. 
+   Replace pom.xml with one found here. 
    
 
 For more information on the pcap4j tool used and how to use it please visit: 
